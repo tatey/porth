@@ -13,11 +13,15 @@ class HandlerTest < MiniTest::Unit::TestCase
   end
     
   def test_json
-    assert_equal '{"foo":"bar"}', render('show', :json)
+    assert_equal '{"foo":"bar"}', render('hash', :json)
   end
   
   def test_json_p
-    assert_equal 'fn({"foo":"bar"})', render('show', :json, :callback => 'fn')
+    assert_equal 'myFunction({"foo":"bar"})', render('hash', :json, :callback => 'myFunction')
+  end
+  
+  def test_block
+    assert_equal '[{"foo":"oof"},{"bar":"rab"},{"baz":"zab"}]', render('block', :json)
   end
   
   def test_xml

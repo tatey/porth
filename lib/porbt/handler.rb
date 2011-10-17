@@ -11,7 +11,7 @@ module Porbt
     end
 
     def compile
-      instance_eval { template.source }
+      instance_eval template.source
     end
     
     def format
