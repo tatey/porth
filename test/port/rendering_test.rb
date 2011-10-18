@@ -21,6 +21,6 @@ class RenderingTest < MiniTest::Unit::TestCase
   end
   
   def test_xml
-    assert_equal '<?xml version="1.0" encoding="UTF-8"?>\n<objects type="array">\n  <object>\n    <1 type="integer">2</1>\n  </object>\n  <object>\n    <2 type="integer">4</2>\n  </object>\n</objects>\n', render('view', :xml)
+    assert_equal %{<?xml version="1.0" encoding="UTF-8"?>\n<objects type="array">\n  <object 1="2" type="hash"/>\n  <object 2="4" type="hash"/>\n</objects>\n}, render('view', :xml)
   end
 end
