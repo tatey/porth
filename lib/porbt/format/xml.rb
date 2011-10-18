@@ -1,7 +1,7 @@
 module Porbt
   module Format
     class XML
-      def self.call options, compiled
+      def self.call compiled, options
         compiled.to_xml
       end
     end

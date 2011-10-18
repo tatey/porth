@@ -7,7 +7,7 @@ module Porbt
     end
     
     def call
-      "Porbt::Format::#{format}.call @_assigns, #{compile}"
+      "Porbt::Format::#{format}.call #{compile}, @_assigns"
     end
 
     def compile
