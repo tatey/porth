@@ -1,5 +1,6 @@
 require 'json'
 
+require 'porbt/error'
 require 'porbt/format/json'
 require 'porbt/format/xml'
 require 'porbt/handler'

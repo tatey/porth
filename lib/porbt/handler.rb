@@ -1,4 +1,4 @@
-module Porbt
+module Porbt  
   class Handler
     attr_reader :template
     
@@ -15,11 +15,15 @@ module Porbt
     end
     
     def format
-      {:json => 'JSON', :xml => 'XML'}.fetch(template.formats.first) { raise }
+      self.class.formats.fetch(template.formats.first) { raise Error }
     end
     
     def self.call template
       new(template).call
+    end
+    
+    def self.formats
+      {:json => 'JSON', :xml => 'XML'}
     end
   end
 end
