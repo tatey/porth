@@ -1,3 +1,3 @@
-module PortView
+module Porth
   VERSION = '0.0.1'
 end

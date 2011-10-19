@@ -1,4 +1,4 @@
-module PortView
+module Porth
   module Format
     class XML
       def self.call object, options

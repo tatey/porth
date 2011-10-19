@@ -1,4 +1,4 @@
-module PortView
+module Porth
   module Format
     class JSON
       def self.call object, options

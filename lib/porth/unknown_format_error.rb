@@ -1,4 +1,4 @@
-module PortView
+module Porth
   class UnknownFormatError < StandardError
     def message
       'Unknown format. Supported formats are ' + Handler.formats.keys.join(', ')

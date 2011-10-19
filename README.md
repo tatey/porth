@@ -1,6 +1,6 @@
-# PortView (Plain Old Ruby Template View)
+# Porth (Plain Old Ruby Template Handler)
 
-Write your Rails views using plain old Ruby templates. You should use PortView if you feel:
+Write your Rails views using plain old Ruby templates. You should use Porth if you feel:
 
 * Representing data is best done in the view, not defining `#as_json` in some model
 * A DSL for creating arrays and hashes is unnecessary when you could just use Ruby
@@ -87,7 +87,7 @@ myCallback({"area_served":"Brisbane","latitude":-27.4661111111111,"longitude":15
 Add this to your project's Gemfile.
 
 ``` ruby
-gem 'port_view'
+gem 'porth'
 ```
 
 ## Compatibility

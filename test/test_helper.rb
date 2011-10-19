@@ -1,4 +1,4 @@
 require 'minitest/autorun'
-require 'port_view'
+require 'porth'
 
-include PortView
+include Porth
