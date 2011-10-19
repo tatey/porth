@@ -7,11 +7,7 @@ module Porbt
     end
     
     def call
-      "Porbt::Format::#{format}.call #{compile}, @_assigns"
-    end
-
-    def compile
-      instance_eval template.source
+      "Porbt::Format::#{format}.call instance_eval { #{template.source} }, @_assigns"
     end
     
     def format
