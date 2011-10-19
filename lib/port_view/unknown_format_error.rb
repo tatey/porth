@@ -1,4 +1,4 @@
-module Porbt
+module PortView
   class UnknownFormatError < StandardError
     def message
       'Unknown format. Supported formats are ' + Handler.formats.keys.join(', ')

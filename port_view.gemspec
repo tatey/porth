@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
 
 $:.push File.expand_path("../lib", __FILE__)
-require "porbt/version"
+require "port_view/version"
 
 Gem::Specification.new do |s|
-  s.name        = "porbt"
-  s.version     = Porbt::VERSION
+  s.name        = "port_view"
+  s.version     = PortView::VERSION
   s.authors     = ["Tate Johnson"]
   s.email       = ["tate@tatey.com"]
-  s.homepage    = "https://github.com/tatey/porbt"
+  s.homepage    = "https://github.com/tatey/port_view"
   s.summary     = %q{Plain Old Ruby Template}
   s.description = %q{Plain Old Ruby Template}
 

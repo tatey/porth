@@ -1,4 +1,4 @@
-module Porbt  
+module PortView  
   class Handler
     attr_reader :template
     
@@ -7,7 +7,7 @@ module Porbt
     end
     
     def call
-      "Porbt::Format::#{format}.call instance_eval { #{template.source} }, @_assigns"
+      "PortView::Format::#{format}.call instance_eval { #{template.source} }, @_assigns"
     end
     
     def format
