@@ -11,7 +11,7 @@ module Porbt
     end
     
     def format
-      self.class.formats.fetch(template.formats.first) { raise Error }
+      self.class.formats.fetch(template.formats.first) { raise UnknownFormatError }
     end
     
     def self.call template
