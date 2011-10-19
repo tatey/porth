@@ -66,19 +66,25 @@ Or XML...
 
 Template files should have a `.rb` extension and follow normal conventions. Objects should 
 respond to `#to_json` and `#to_xml`. Arrays and hashes are best. You'll get a `Port::UnknownFormatError`
-if you use anything other than JSON or XML.
+if you use anything other than the supported formats.
 
 ## JSONP
+
+In your controller set the callback.
 
 ``` ruby
 respond_with @transmitter, :callback => params[:callback]
 ```
 
+And when you hit `/transmitters/1.json?callback=myCallback` you should get back JSON wrapped in a named function.
+
 ``` javascript
-myCallbackFn({"area_served":"Brisbane","latitude":-27.4661111111111,"longitude":152.946388888889,"distance":16700})
+myCallback({"area_served":"Brisbane","latitude":-27.4661111111111,"longitude":152.946388888889,"distance":16700})
 ```
 
-## Bundler
+## Setup
+
+Add this to your project's Gemfile.
 
 ``` ruby
 gem 'port_view'
