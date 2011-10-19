@@ -44,7 +44,7 @@ You can have JSON...
 [{"area_served":"Brisbane","latitude":-27.4661111111111,"longitude":152.946388888889,"distance":16700},{"area_served":"Gold Coast","latitude":-27.9711111111111,"longitude":153.212222222222,"distance":47190}]
 ```
 
-Or XML...
+...or XML
 
 ``` xml
 <?xml version="1.0" encoding="UTF-8"?>
