@@ -1,12 +1,12 @@
 module Porbt
   module Format
     class JSON
-      def self.call compiled, options
-        compiled = compiled.to_json
+      def self.call object, options
+        json = object.to_json
         if options[:callback]
-          "#{options[:callback]}(#{compiled})"
+          "#{options[:callback]}(#{json})"
         else
-          compiled
+          json
         end
       end
     end
