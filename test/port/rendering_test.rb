@@ -17,7 +17,7 @@ class RenderingTest < MiniTest::Unit::TestCase
   end
   
   def test_json_p
-    assert_equal 'myFunction([{"1":2},{"2":4}])', render('block', :json, :callback => 'myFunction')
+    assert_equal 'myFunction([{"1":2},{"2":4}])', render('block', :json, 'callback' => 'myFunction')
   end
   
   def test_xml
@@ -25,6 +25,6 @@ class RenderingTest < MiniTest::Unit::TestCase
   end
   
   def test_instance_variable
-    assert_equal '["bar"]', render('instance_variable', :json, :foo => 'bar')
+    assert_equal '["bar"]', render('instance_variable', :json, 'foo' => 'bar')
   end
 end
