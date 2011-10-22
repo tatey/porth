@@ -3,8 +3,8 @@ module Porth
     class JSON
       def self.call object, assigns
         json = object.to_json
-        if assigns['callback']
-          "#{assigns['callback']}(#{json})"
+        if assigns['json_callback']
+          "#{assigns['json_callback']}(#{json})"
         else
           json
         end
