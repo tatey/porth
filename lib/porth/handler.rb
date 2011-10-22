@@ -7,7 +7,7 @@ module Porth
     end
     
     def call
-      "#{format}.call instance_eval { #{template.source} }, assigns"
+      "#{format}.call controller, instance_eval { #{template.source} }"
     end
     
     def format
@@ -24,6 +24,7 @@ module Porth
     
     def self.register_format format, mod
       formats[format] = mod
+      ActionController::Base.send :include, mod::ControllerExtensions
     end
   end
 end

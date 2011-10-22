@@ -1,9 +1,15 @@
 module Porth
   module Format
-    class XML
-      def self.call object, assigns
-        object.to_xml :root => assigns['xml_root']
+    module XML
+      def self.call controller, object
+        object.to_xml :root => controller.xml_root
+      end
+      
+      module ControllerExtensions
+        def xml_root
+          self.class.name.sub('Controller', '').underscore.split('/').last.pluralize
+        end
       end
     end
-  end  
+  end
 end
