@@ -1,10 +1,10 @@
 module Porth
   module Format
     class JSON
-      def self.call object, options
+      def self.call object, assigns
         json = object.to_json
-        if options[:callback]
-          "#{options[:callback]}(#{json})"
+        if assigns[:callback]
+          "#{assigns[:callback]}(#{json})"
         else
           json
         end

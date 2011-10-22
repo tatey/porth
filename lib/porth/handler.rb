@@ -7,7 +7,7 @@ module Porth
     end
     
     def call
-      "Porth::Format::#{format}.call instance_eval { #{template.source} }, @_assigns"
+      "#{format}.call instance_eval { #{template.source} }, assigns"
     end
     
     def format
@@ -19,7 +19,11 @@ module Porth
     end
     
     def self.formats
-      {:json => 'JSON', :xml => 'XML'}
+      @formats ||= {}
+    end
+    
+    def self.register_format format, mod
+      formats[format] = mod
     end
   end
 end
