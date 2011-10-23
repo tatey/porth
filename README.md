@@ -115,8 +115,9 @@ end
 
 ## Compatibility
 
-* Ruby 1.9.2
 * ActionPack 3.1.0
+* JRuby 1.6.4
+* Ruby 1.9.2
 
 ## Contributing
 
