@@ -1,20 +1,16 @@
 # Porth (Plain Old Ruby Template Handler)
 
-Write your Rails views using plain old Ruby templates. You should use Porth if you feel:
-
-* Representing data is best done in the view, not defining `#as_json` in some model
-* A DSL for creating arrays and hashes is unnecessary when you could just use Ruby
-* Views are defined once and rendered in JSON(P) or XML based on the requested format
+Write your views using plain old Ruby. Views are for representation, not defining
+`#as_json` in a model. There's no need to learn a DSL for building arrays and hashes.
+Just use Ruby. Views are written once and rendered in JSON(P) or XML based on
+the requested format. Porth makes few assumptions and can be configured.
 
 ## Installation
 
-``` ruby
-# Gemfile
-gem 'porth'
-```
+Add this to your project's Gemfile and run `$ bundle install`
 
-``` sh
-$ bundle install
+``` ruby
+gem 'porth'
 ```
 
 ## Usage
@@ -126,6 +122,11 @@ end
 3. Write tests and code
 4. Make sure the tests pass by running `$ rake`
 5. Push and send a pull request on GitHub
+
+## Credits
+
+Porth is the result of numerous discussions at [Everyday Hero](http://www.everydayhero.com.au) 
+around better API design.
 
 ## Copyright
 

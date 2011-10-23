@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Tate Johnson"]
   s.email       = ["tate@tatey.com"]
   s.homepage    = "https://github.com/tatey/porth"
-  s.summary     = %q{Plain Old Ruby Template}
-  s.description = %q{Plain Old Ruby Template}
+  s.summary     = %q{Plain Old Ruby Template Handler}
+  s.description = %q{Write your views using plain old Ruby}
 
   s.rubyforge_project = "porbt"
 
@@ -21,8 +21,8 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   
   s.add_runtime_dependency 'actionpack', '>= 3.1.0', '< 4.0.0'
-  s.add_runtime_dependency 'json', '~> 1.6.1'
+  s.add_runtime_dependency 'json',       '~> 1.6.1'
   
   s.add_development_dependency 'minitest', '~> 2.6.2'
-  s.add_development_dependency 'rake', '~> 0.9.2'
+  s.add_development_dependency 'rake',     '~> 0.9.2'
 end
