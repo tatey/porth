@@ -112,7 +112,7 @@ end
 ## Examples
 
 Remember, anything you can do in Ruby you can do in Porth. Here are a few ideas
-for writing your views.
+for writing and testing your views.
 
 ### Subset
 
@@ -137,6 +137,35 @@ if current_user.admin?
   attributes[:likability] = @author.determine_likability_as_of Time.current
 end
 attributes
+```
+
+### Functional Test
+
+Use functional tests to verify the response's body is correct.
+
+``` ruby
+# app/views/posts/show.rb
+@author.attributes.slice :id, :title, :body
+```
+
+JSON maps well to Ruby's hashes. Set the response to JSON, parse the body into 
+a hash and verify the key-value pairs.
+
+```
+# test/functional/posts_controller_test.rb
+require 'test_helper'
+
+class PostsControllerTest < ActionController::TestCase
+  # ...
+  
+  test "GET show" do
+    get :show, id: posts(:hello_word), format: 'json'
+    post = JSON.parse response.body
+    assert_equal 123040040, post[:id]
+    assert_equal 'Hello, World!', post[:title]
+    assert_equal 'Lorem ipsum dolar sit amet...', post[:body]
+  end
+end
 ```
 
 ## Compatibility
