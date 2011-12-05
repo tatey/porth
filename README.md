@@ -159,7 +159,7 @@ class PostsControllerTest < ActionController::TestCase
   # ...
   
   test "GET show" do
-    get :show, id: posts(:hello_word), format: 'json'
+    get :show, id: posts(:hello_word).id, format: 'json'
     post = JSON.parse response.body
     assert_equal 123040040, post[:id]
     assert_equal 'Hello, World!', post[:title]
