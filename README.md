@@ -151,7 +151,7 @@ Use functional tests to verify the response's body is correct.
 JSON maps well to Ruby's hashes. Set the response to JSON, parse the body into 
 a hash and verify the key-value pairs.
 
-```
+``` ruby
 # test/functional/posts_controller_test.rb
 require 'test_helper'
 
