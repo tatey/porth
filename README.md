@@ -109,6 +109,36 @@ class TransmittersController < ApplicationController
 end
 ```
 
+## Examples
+
+Remember, anything you can do in Ruby you can do in Porth. Here are a few ideas
+for writing your views.
+
+### Subset
+
+Conveniently select a subset of attributes.
+
+``` ruby
+# app/views/users/show.rb
+@author.attributes.slice :id, :first_name, :last_name, :email
+```
+
+### Variable and Condition
+
+Hashes may get dirty if you attempt to build them all in one go. Consider storing
+the hash in a variable and adding to it based on a condition. Like a method you
+need to return the hash on the last line.
+
+``` ruby
+# app/views/users/show.rb
+attributes = @author.attributes.slice :id, :first_name, :last_name, :email
+if current_user.admin?
+  attributes[:ip_address] = @author.ip_address
+  attributes[:likability] = @author.determine_likability_as_of Time.current
+end
+attributes
+```
+
 ## Compatibility
 
 * ActionPack 3.1.0
