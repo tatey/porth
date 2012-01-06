@@ -1,3 +1,4 @@
+require 'rexml/document'
 require 'test_helper'
 
 class RenderingTest < MiniTest::Unit::TestCase
@@ -22,16 +23,20 @@ class RenderingTest < MiniTest::Unit::TestCase
   end
     
   def test_json
-    assert_equal '[{"1":2},{"2":4}]', render('block', :json)
+    assert_equal '[{"value":1},{"value":2}]', render('block', :json)
   end
   
   def test_json_callback
     @controller.params[:callback] = 'myFunction'
-    assert_equal 'myFunction([{"1":2},{"2":4}])', render('block', :json)
+    assert_equal 'myFunction([{"value":1},{"value":2}])', render('block', :json)
   end
 
   def test_xml
-    assert_equal %{<?xml version="1.0" encoding="UTF-8"?>\n<tests type="array">\n  <test 1="2" type="hash"/>\n  <test 2="4" type="hash"/>\n</tests>\n}, render('block', :xml)
+    xml = REXML::Document.new render('block', :xml)
+    assert_equal '1', xml.root.elements[1].attributes['value']
+    assert_equal 'hash', xml.root.elements[1].attributes['type']
+    assert_equal '2', xml.root.elements[2].attributes['value']
+    assert_equal 'hash', xml.root.elements[2].attributes['type']
   end
   
   def test_instance_variable

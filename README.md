@@ -170,9 +170,13 @@ end
 
 ## Compatibility
 
+* MRI 1.8.7
+* MRI 1.9.2+
+* JRuby 1.6.4+
+
+## Dependancies
+
 * ActionPack 3.1.0
-* JRuby 1.6.4
-* Ruby 1.9.2
 
 ## Contributing
 
