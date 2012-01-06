@@ -1,5 +1,7 @@
 # Porth (Plain Old Ruby Template Handler)
 
+[![Build Status](https://secure.travis-ci.org/tatey/porth.png)](http://travis-ci.org/tatey/porth)
+
 Write your views using plain old Ruby. Views are for representation, not defining
 `#as_json` in a model. There's no need to learn a DSL for building arrays and hashes.
 Just use Ruby. Views are written once and rendered in JSON(P) or XML based on
