@@ -180,6 +180,10 @@ end
 
 * ActionPack 3.1.0
 
+## Extensions
+
+* [porth-plist](https://github.com/soundevolution/porth-plist) - Adds Property list (.plist) support
+
 ## Contributing
 
 1. Fork
