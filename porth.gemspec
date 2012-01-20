@@ -20,8 +20,8 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
   
-  s.add_runtime_dependency 'actionpack', '>= 3.1.0', '< 4.0.0'
-  s.add_runtime_dependency 'json',       '~> 1.6.1'
+  s.add_runtime_dependency 'actionpack', '>= 3.0.0', '< 4.0.0'
+  s.add_runtime_dependency 'json'
   
   s.add_development_dependency 'minitest', '~> 2.6.2'
   s.add_development_dependency 'rake',     '~> 0.9.2'
