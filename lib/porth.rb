@@ -1,5 +1,4 @@
 require 'action_controller'
-require 'json'
 
 require 'porth/format/json'
 require 'porth/format/xml'
