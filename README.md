@@ -122,7 +122,7 @@ Conveniently select a subset of attributes.
 
 ``` ruby
 # app/views/users/show.rb
-@author.attributes.slice :id, :first_name, :last_name, :email
+@author.attributes.slice 'id', 'first_name', 'last_name', 'email'
 ```
 
 ### Variable and Condition
@@ -133,10 +133,10 @@ need to return the hash on the last line.
 
 ``` ruby
 # app/views/users/show.rb
-attributes = @author.attributes.slice :id, :first_name, :last_name, :email
+attributes = @author.attributes.slice 'id', 'first_name', 'last_name', 'email'
 if current_user.admin?
-  attributes[:ip_address] = @author.ip_address
-  attributes[:likability] = @author.determine_likability_as_of Time.current
+  attributes['ip_address'] = @author.ip_address
+  attributes['likability'] = @author.determine_likability_as_of Time.current
 end
 attributes
 ```
@@ -147,7 +147,7 @@ Use functional tests to verify the response's body is correct.
 
 ``` ruby
 # app/views/posts/show.rb
-@author.attributes.slice :id, :title, :body
+@author.attributes.slice 'id', 'title', 'body'
 ```
 
 JSON maps well to Ruby's hashes. Set the response to JSON, parse the body into 
