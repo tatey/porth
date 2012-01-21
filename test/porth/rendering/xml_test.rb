@@ -10,12 +10,16 @@ class Rendering::XMLTest < MiniTest::Unit::TestCase
   end
 
   def test_render_xml_with_array_of_objects
-    xml = REXML::Document.new render('collection', :xml, MockController.new)
+    xml = REXML::Document.new render('array', :xml, MockController.new)
     assert_equal 'mocks', xml.root.name
   end
 
   def test_render_xml_with_object
-    xml = REXML::Document.new render('singular', :xml, MockController.new)
+    xml = REXML::Document.new render('hash', :xml, MockController.new)
     assert_equal 'mock', xml.root.name
+  end
+  
+  def test_render_xml_with_instance_variable
+    assert_equal "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mocks type=\"array\">\n  <mock>bar</mock>\n</mocks>\n", render('instance_variable', :xml, MockController.new, {'foo' => 'bar'})
   end
 end
