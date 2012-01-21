@@ -25,8 +25,8 @@ class XMLTest < MiniTest::Unit::TestCase
     assert_equal 'foos', klass('Foos').new.send(:xml_pluralized_root)
   end
   
-  def test_xml_singularize_root
-    assert_equal 'foo', klass('Foo').new.send(:xml_singularize_root)
-    assert_equal 'foo', klass('Foos').new.send(:xml_singularize_root)    
+  def test_xml_singularized_root
+    assert_equal 'foo', klass('Foo').new.send(:xml_singularized_root)
+    assert_equal 'foo', klass('Foos').new.send(:xml_singularized_root)    
   end
 end

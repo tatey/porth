@@ -5,7 +5,7 @@ module Porth
         method = if object.respond_to?(:count) && !object.respond_to?(:keys)
           :xml_pluralized_root
         else
-          :xml_singularize_root
+          :xml_singularized_root
         end
         object.to_xml :root => controller.send(method)
       end
@@ -21,7 +21,7 @@ module Porth
           xml_root.pluralize
         end
                 
-        def xml_singularize_root
+        def xml_singularized_root
           xml_root.singularize
         end
       end

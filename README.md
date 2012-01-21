@@ -111,6 +111,29 @@ class TransmittersController < ApplicationController
 end
 ```
 
+Resource names are pluralized or singularized by introspecting the return type from
+the view. Following convention, collection actions (index) should return 
+an array of objects and member actions (new, create, edit, update, delete) should 
+return an object. Override `#xml_pluralized_root` to explicitly set the collection 
+resource name and override `#xml_singularize_root` to explicitly set the member 
+resource name.
+
+``` ruby
+class SeaFoodsController < ApplicationController
+  # ...
+
+  protected
+  
+  def xml_pluralized_root
+    'fish'
+  end
+          
+  def xml_singularized_root
+    'fish'
+  end
+end
+```
+
 ## Examples
 
 Remember, anything you can do in Ruby you can do in Porth. Here are a few ideas
@@ -163,9 +186,9 @@ class PostsControllerTest < ActionController::TestCase
   test "GET show" do
     get :show, id: posts(:hello_word).id, format: 'json'
     post = JSON.parse response.body
-    assert_equal 123040040, post[:id]
-    assert_equal 'Hello, World!', post[:title]
-    assert_equal 'Lorem ipsum dolar sit amet...', post[:body]
+    assert_equal 123040040, post['id']
+    assert_equal 'Hello, World!', post['title']
+    assert_equal 'Lorem ipsum dolar sit amet...', post['body']
   end
 end
 ```
