@@ -201,7 +201,7 @@ end
 
 ## Dependancies
 
-* ActionPack 3.1.0
+* ActionPack 3.0.0+
 
 ## Extensions
 
