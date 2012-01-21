@@ -1,3 +1,4 @@
+require 'active_support/core_ext/hash'
 require 'rexml/document'
 require 'test_helper'
 
@@ -32,11 +33,14 @@ class RenderingTest < MiniTest::Unit::TestCase
   end
 
   def test_xml
-    xml = REXML::Document.new render('block', :xml)
-    assert_equal '1', xml.root.elements[1].attributes['value']
-    assert_equal 'hash', xml.root.elements[1].attributes['type']
-    assert_equal '2', xml.root.elements[2].attributes['value']
-    assert_equal 'hash', xml.root.elements[2].attributes['type']
+    assert_equal "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<tests type=\"array\">\n  <test>\n    <value type=\"integer\">1</value>\n  </test>\n  <test>\n    <value type=\"integer\">2</value>\n  </test>\n</tests>\n", render(:block, :xml)
+  end
+  
+  def test_xml_root
+    collection = REXML::Document.new render('collection', :xml)
+    singular   = REXML::Document.new render('singular', :xml)    
+    assert_equal 'tests', collection.root.name
+    assert_equal 'test', singular.root.name
   end
   
   def test_instance_variable

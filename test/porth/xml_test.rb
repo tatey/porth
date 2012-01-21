@@ -14,9 +14,9 @@ class XMLTest < MiniTest::Unit::TestCase
   end
   
   def test_send_xml_root
-    assert_equal 'foos', klass('Foo').new.send(:xml_root)
-    assert_equal 'foos', klass('FooController').new.send(:xml_root)
+    assert_equal 'foo', klass('Foo').new.send(:xml_root)
+    assert_equal 'foo', klass('FooController').new.send(:xml_root)
     assert_equal 'foos', klass('FoosController').new.send(:xml_root)
-    assert_equal 'bars', klass('Foo::BarController').new.send(:xml_root)
+    assert_equal 'bar', klass('Foo::BarController').new.send(:xml_root)
   end
 end
