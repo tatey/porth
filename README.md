@@ -212,7 +212,7 @@ end
 1. Fork
 2. Install dependancies by running `$ bundle install`
 3. Write tests and code
-4. Make sure the tests pass by running `$ rake`
+4. Make sure the tests pass by running `$ bundle exec rake`
 5. Push and send a pull request on GitHub
 
 ## Credits
