@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class XMLTest < MiniTest::Unit::TestCase
+class Format::XMLTest < MiniTest::Unit::TestCase
   def klass name
     instance_eval <<-RUBY_STRING
       Class.new do
