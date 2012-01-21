@@ -13,10 +13,20 @@ class XMLTest < MiniTest::Unit::TestCase
     RUBY_STRING
   end
   
-  def test_send_xml_root
+  def test_xml_root
     assert_equal 'foo', klass('Foo').new.send(:xml_root)
     assert_equal 'foo', klass('FooController').new.send(:xml_root)
     assert_equal 'foos', klass('FoosController').new.send(:xml_root)
     assert_equal 'bar', klass('Foo::BarController').new.send(:xml_root)
+  end
+  
+  def test_xml_pluralized_root
+    assert_equal 'foos', klass('Foo').new.send(:xml_pluralized_root)
+    assert_equal 'foos', klass('Foos').new.send(:xml_pluralized_root)
+  end
+  
+  def test_xml_singularize_root
+    assert_equal 'foo', klass('Foo').new.send(:xml_singularize_root)
+    assert_equal 'foo', klass('Foos').new.send(:xml_singularize_root)    
   end
 end
