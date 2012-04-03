@@ -1,0 +1,291 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Porth by tatey</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Porth</h1>
+        <p>Plain Old Ruby Template Handler</p>
+        <p class="view"><a href="https://github.com/tatey/porth">View the Project on GitHub <small>tatey/porth</small></a></p>
+        <ul>
+          <li><a href="https://github.com/tatey/porth/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/tatey/porth/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/tatey/porth">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Porth (Plain Old Ruby Template Handler)</h1>
+
+<p><a href="http://travis-ci.org/tatey/porth"><img src="https://secure.travis-ci.org/tatey/porth.png" alt="Build Status"></a></p>
+
+<p>Write your views using plain old Ruby. Views are for representation, not defining
+<code>#as_json</code> in a model. There's no need to learn a DSL for building arrays and hashes.
+Just use Ruby. Views are written once and rendered in JSON(P) or XML based on
+the requested format. Porth makes few assumptions and can be configured.</p>
+
+<h2>Installation</h2>
+
+<p>Add this to your project's Gemfile and run <code>$ bundle install</code></p>
+
+<div class="highlight">
+<pre><span class="n">gem</span> <span class="s1">'porth'</span>
+</pre>
+</div>
+
+
+<h2>Usage</h2>
+
+<p>Create a controller that responds to JSON, XML or both.</p>
+
+<div class="highlight">
+<pre><span class="c1"># app/controllers/transmitters_controller.rb</span>
+<span class="k">class</span> <span class="nc">TransmittersController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="n">respond_to</span> <span class="ss">:json</span><span class="p">,</span> <span class="ss">:xml</span>
+
+  <span class="k">def</span> <span class="nf">index</span>
+    <span class="vi">@transmitters</span> <span class="o">=</span> <span class="no">Transmitter</span><span class="o">.</span><span class="n">all</span>
+    <span class="n">respond_with</span> <span class="vi">@transmitters</span>
+  <span class="k">end</span>
+
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>Create a template with a <code>.rb</code> extension. Write plain old Ruby. Objects
+must respond to <code>#to_json</code> or <code>#to_xml</code>. Arrays and hashes are best.</p>
+
+<div class="highlight">
+<pre><span class="c1"># app/views/transmitters/index.rb</span>
+<span class="vi">@transmitters</span><span class="o">.</span><span class="n">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+  <span class="p">{</span>
+    <span class="nb">name</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">area_served</span><span class="p">,</span>
+    <span class="n">latitude</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
+    <span class="n">longitude</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span>
+    <span class="n">nearby</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">nearby</span><span class="o">.</span><span class="n">size</span>
+  <span class="p">}</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>GET /transmitters.json</p>
+
+<div class="highlight">
+<pre><span class="p">[{</span><span class="s2">"name"</span><span class="o">:</span><span class="s2">"Brisbane"</span><span class="p">,</span><span class="s2">"latitude"</span><span class="o">:-</span><span class="mf">27.4661111111111</span><span class="p">,</span><span class="s2">"longitude"</span><span class="o">:</span><span class="mf">152.946388888889</span><span class="p">,</span><span class="s2">"nearby"</span><span class="o">:</span><span class="mi">11</span><span class="p">}]</span>
+</pre>
+</div>
+
+
+<p>GET /transmitters.json?callback=myFunction</p>
+
+<div class="highlight">
+<pre><span class="nx">myFunction</span><span class="p">([{</span><span class="s2">"name"</span><span class="o">:</span><span class="s2">"Brisbane"</span><span class="p">,</span><span class="s2">"latitude"</span><span class="o">:-</span><span class="mf">27.4661111111111</span><span class="p">,</span><span class="s2">"longitude"</span><span class="o">:</span><span class="mf">152.946388888889</span><span class="p">,</span><span class="s2">"nearby"</span><span class="o">:</span><span class="mi">11</span><span class="p">}])</span>
+</pre>
+</div>
+
+
+<p>GET /transmitters.xml</p>
+
+<div class="highlight">
+<pre><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;transmitters</span> <span class="na">type=</span><span class="s">"array"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;transmitter&gt;</span>
+    <span class="nt">&lt;name&gt;</span>Brisbane<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;latitude</span> <span class="na">type=</span><span class="s">"float"</span><span class="nt">&gt;</span>-27.4661111111111<span class="nt">&lt;/latitude&gt;</span>
+    <span class="nt">&lt;longitude</span> <span class="na">type=</span><span class="s">"float"</span><span class="nt">&gt;</span>152.946388888889<span class="nt">&lt;/longitude&gt;</span>
+    <span class="nt">&lt;nearby</span> <span class="na">type=</span><span class="s">"integer"</span><span class="nt">&gt;</span>11<span class="nt">&lt;/nearby&gt;</span>
+  <span class="nt">&lt;/transmitter&gt;</span>
+<span class="nt">&lt;/transmitters&gt;</span>
+</pre>
+</div>
+
+
+<p><code>Porth::UnknownFormatError</code> is raised when the requested format is not supported.</p>
+
+<h3>JSONP</h3>
+
+<p>Porth calls <code>#json_callback</code> to get the function name for JSONP responses. By default
+this method is added to <code>ActionController::Base</code> and returns <code>params[:callback]</code>. Override
+<code>#json_callback</code> to get different behaviour.</p>
+
+<div class="highlight">
+<pre><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
+  <span class="c1"># ...</span>
+
+  <span class="kp">protected</span>
+
+  <span class="k">def</span> <span class="nf">json_callback</span>
+    <span class="kp">nil</span> <span class="c1"># Ignore JSONP requests</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<h3>XML</h3>
+
+<p>Porth guesses the resource's name from the controller's class. <code>Foo::BarsController</code>
+becomes <code>bars</code>. Override <code>#xml_root</code> to explicitly set the resource name.</p>
+
+<div class="highlight">
+<pre><span class="k">class</span> <span class="nc">TransmittersController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="c1"># ...</span>
+
+  <span class="kp">protected</span>
+
+  <span class="k">def</span> <span class="nf">xml_root</span>
+    <span class="s1">'sites'</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>Resource names are pluralized or singularized by introspecting the return type from
+the view. Following convention, collection actions (index) should return 
+an array of objects and member actions (new, create, edit, update, delete) should 
+return an object. Override <code>#xml_pluralized_root</code> to explicitly set the collection 
+resource name and override <code>#xml_singularize_root</code> to explicitly set the member 
+resource name.</p>
+
+<div class="highlight">
+<pre><span class="k">class</span> <span class="nc">SeaFoodsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="c1"># ...</span>
+
+  <span class="kp">protected</span>
+
+  <span class="k">def</span> <span class="nf">xml_pluralized_root</span>
+    <span class="s1">'fish'</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">xml_singularized_root</span>
+    <span class="s1">'fish'</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<h2>Examples</h2>
+
+<p>Remember, anything you can do in Ruby you can do in Porth. Here are a few ideas
+for writing and testing your views.</p>
+
+<h3>Subset</h3>
+
+<p>Conveniently select a subset of attributes.</p>
+
+<div class="highlight">
+<pre><span class="c1"># app/views/users/show.rb</span>
+<span class="vi">@author</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">slice</span> <span class="s1">'id'</span><span class="p">,</span> <span class="s1">'first_name'</span><span class="p">,</span> <span class="s1">'last_name'</span><span class="p">,</span> <span class="s1">'email'</span>
+</pre>
+</div>
+
+
+<h3>Variable and Condition</h3>
+
+<p>Hashes may get dirty if you attempt to build them all in one go. Consider storing
+the hash in a variable and adding to it based on a condition. Like a method you
+need to return the hash on the last line.</p>
+
+<div class="highlight">
+<pre><span class="c1"># app/views/users/show.rb</span>
+<span class="n">attributes</span> <span class="o">=</span> <span class="vi">@author</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">slice</span> <span class="s1">'id'</span><span class="p">,</span> <span class="s1">'first_name'</span><span class="p">,</span> <span class="s1">'last_name'</span><span class="p">,</span> <span class="s1">'email'</span>
+<span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">admin?</span>
+  <span class="n">attributes</span><span class="o">[</span><span class="s1">'ip_address'</span><span class="o">]</span> <span class="o">=</span> <span class="vi">@author</span><span class="o">.</span><span class="n">ip_address</span>
+  <span class="n">attributes</span><span class="o">[</span><span class="s1">'likability'</span><span class="o">]</span> <span class="o">=</span> <span class="vi">@author</span><span class="o">.</span><span class="n">determine_likability_as_of</span> <span class="no">Time</span><span class="o">.</span><span class="n">current</span>
+<span class="k">end</span>
+<span class="n">attributes</span>
+</pre>
+</div>
+
+
+<h3>Functional Test</h3>
+
+<p>Use functional tests to verify the response's body is correct.</p>
+
+<div class="highlight">
+<pre><span class="c1"># app/views/posts/show.rb</span>
+<span class="vi">@author</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">slice</span> <span class="s1">'id'</span><span class="p">,</span> <span class="s1">'title'</span><span class="p">,</span> <span class="s1">'body'</span>
+</pre>
+</div>
+
+
+<p>JSON maps well to Ruby's hashes. Set the response to JSON, parse the body into 
+a hash and verify the key-value pairs.</p>
+
+<div class="highlight">
+<pre><span class="c1"># test/functional/posts_controller_test.rb</span>
+<span class="nb">require</span> <span class="s1">'test_helper'</span>
+
+<span class="k">class</span> <span class="nc">PostsControllerTest</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">TestCase</span>
+  <span class="c1"># ...</span>
+
+  <span class="nb">test</span> <span class="s2">"GET show"</span> <span class="k">do</span>
+    <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">posts</span><span class="p">(</span><span class="ss">:hello_word</span><span class="p">)</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="s1">'json'</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span> <span class="n">response</span><span class="o">.</span><span class="n">body</span>
+    <span class="n">assert_equal</span> <span class="mi">123040040</span><span class="p">,</span> <span class="n">post</span><span class="o">[</span><span class="s1">'id'</span><span class="o">]</span>
+    <span class="n">assert_equal</span> <span class="s1">'Hello, World!'</span><span class="p">,</span> <span class="n">post</span><span class="o">[</span><span class="s1">'title'</span><span class="o">]</span>
+    <span class="n">assert_equal</span> <span class="s1">'Lorem ipsum dolar sit amet...'</span><span class="p">,</span> <span class="n">post</span><span class="o">[</span><span class="s1">'body'</span><span class="o">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<h2>Compatibility</h2>
+
+<ul>
+<li>MRI 1.8.7</li>
+<li>MRI 1.9.2+</li>
+<li>JRuby 1.6.4+</li>
+</ul><h2>Dependancies</h2>
+
+<ul>
+<li>ActionPack 3.0.0+</li>
+</ul><h2>Extensions</h2>
+
+<ul>
+<li>
+<a href="https://github.com/soundevolution/porth-plist">porth-plist</a> - Adds Property list (.plist) support</li>
+</ul><h2>Contributing</h2>
+
+<ol>
+<li>Fork</li>
+<li>Install dependancies by running <code>$ bundle install</code>
+</li>
+<li>Write tests and code</li>
+<li>Make sure the tests pass by running <code>$ bundle exec rake</code>
+</li>
+<li>Push and send a pull request on GitHub</li>
+</ol><h2>Credits</h2>
+
+<p>Porth is the result of numerous discussions at <a href="http://www.everydayhero.com.au">Everyday Hero</a> 
+around better API design.</p>
+
+<h2>Copyright</h2>
+
+<p>Copyright © 2011 Tate Johnson. Released under the MIT license. See LICENSE.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/tatey">tatey</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
