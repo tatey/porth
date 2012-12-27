@@ -1,3 +1,18 @@
+# Deprecated
+
+**TL;DR** This library is deprecated and will no longer be maintained. You should consider
+migrating to [ActiveModel::Serializer](https://github.com/rails-api/active_model_serializers).
+
+Porth was a joy to create and use, but it's time to recognise when other libraries 
+do it better. The principle idea behind Porth was to separate the JSON and XML
+representations of your models.
+
+[ActiveModel::Serializer](https://github.com/rails-api/active_model_serializers)
+is a better library with a tonne of support from the community. I would personally
+choose this for my next API.
+
+Thank you for supporting Porth.
+
 # Porth (Plain Old Ruby Template Handler)
 
 [![Build Status](https://secure.travis-ci.org/tatey/porth.png)](http://travis-ci.org/tatey/porth)
